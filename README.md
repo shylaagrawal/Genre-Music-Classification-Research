@@ -54,6 +54,19 @@ for batch_files in track_batches:  # track_batches is a list of lists of audio p
     for track, pred in zip(batch_files, predictions):
         results[track] = pred[0]["label"]  # store top prediction
 ```
+From the multi-label MTG-Jamendo dataset, only tracks corresponding to the ten GTZAN genres were evaluated, ensuring a consistent cross-domain comparison. This step was necessary because MTG-Jamendo contains hundreds of tags, many of which do not appear in GTZAN. Filtering ensures the evaluation focuses on a shared label space and prevents spurious errors from irrelevant genres.
+
+Relevant tracks were selected dynamically using the following logic:
+
+```python
+relevant_tracks = {}
+for track_id, track_data in tracks.items():
+    for track_genre in track_data["genre"]:
+        if normalize(track_genre) in genres:
+            file_name = track_data["path"]
+            relevant_tracks[file_name] = track_data
+            break  # only need one matching genre
+```
 
 # 5. Results
 
