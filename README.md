@@ -45,7 +45,15 @@ The first model is a convolutional neural network-based music genre classifier t
 
 The second model is a state-of-the-art Harmonic Convolutional Neural Network trained on the Million Song Dataset (MSD) for large-scale music tagging. Unlike GTZAN, MSD contains hundreds of thousands of tracks annotated with weak, user-generated tags, resulting in broader genre coverage and greater diversity in audio characteristics. This model was included to contrast narrow benchmark training with large-scale, real-world supervision.
 
-For both models, inference was performed on MTG-Jamendo audio clips. Raw prediction scores were recorded and normalized. Predicted labels were compared against MTG-Jamendo genre annotations to assess cross-domain performance, analyze genre-level transferability, and identify systematic patterns of error or bias under domain shift.
+For both models, inference was performed on MTG-Jamendo audio clips. Raw prediction scores were recorded and normalized. Predicted labels were compared against MTG-Jamendo genre annotations to assess cross-domain performance. To handle large-scale data and allow resumption if processing was interrupted, batch processing was implemented:
+
+```python
+batch_size = 16
+for batch_files in track_batches:  # track_batches is a list of lists of audio paths
+    predictions = pipe(batch_files)
+    for track, pred in zip(batch_files, predictions):
+        results[track] = pred[0]["label"]  # store top prediction
+```
 
 # 5. Results
 
