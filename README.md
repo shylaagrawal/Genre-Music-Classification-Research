@@ -10,11 +10,14 @@ Despite steady improvements in model architectures, progress in genre classifica
 
 However, GTZAN exhibits several well-documented limitations. The dataset is small, genre coverage is narrow, and prior analyses have identified issues such as duplicate tracks, artist overlap across splits, and labeling errors [2]. As a result, models trained exclusively on GTZAN may overfit to dataset-specific artifacts and fail to generalize beyond the benchmark. In real-world settings, music spans a much wider range of styles, production qualities, and hybrid genres, often with ambiguous or multi-label annotations.
 
-This project addresses the problem of domain shift in music genre classification by evaluating how a GTZAN-trained classifier performs on the MTG-Jamendo dataset, a large-scale and contemporary music tagging corpus. The central research questions are: (1) How well does a genre classifier trained on GTZAN generalize to MTG-Jamendo? (2) Which genres transfer most effectively, and which exhibit systematic confusion or bias? and (3) What does this evaluation reveal about the limitations of single-dataset benchmarking in MIR research? The goal of this work is to provide evidence of cross-domain performance gaps and to motivate more robust evaluation practices for music classification systems.
+This project addresses the problem of domain shift in music genre classification by evaluating how a GTZAN-trained classifier performs on the MTG-Jamendo dataset, a large-scale and contemporary music tagging corpus. The central research questions are: 
+- (1) How well does a genre classifier trained on GTZAN generalize to MTG-Jamendo?
+- (2) Which genres transfer most effectively, and which exhibit systematic confusion or bias?
+- (3) What does this evaluation reveal about the limitations of single-dataset benchmarking in MIR research? The goal of this work is to provide evidence of cross-domain performance gaps and to motivate more robust evaluation practices for music classification systems.
 
 # 3. Related Work
 
-Music genre classification has been widely studied for over two decades, with early work focusing on hand-crafted audio features and traditional classifiers [1]. More recent approaches employ deep learning models, particularly convolutional neural networks operating on time–frequency representations such as mel-spectrograms \citep{dieleman2014end}.
+Music genre classification has been widely studied for over two decades, with early work focusing on hand-crafted audio features and traditional classifiers [1]. More recent approaches employ deep learning models, particularly convolutional neural networks operating on time–frequency representations such as mel-spectrograms.
 
 A recurring concern in this literature is dataset bias and evaluation reliability. Sturm [2] demonstrated that many published GTZAN results are inflated due to data leakage, repetition, and confounding factors unrelated to genre. Subsequent studies have emphasized the need for cleaner datasets and cross-dataset evaluation to assess true generalization performance [3].
 
