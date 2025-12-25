@@ -35,7 +35,7 @@ Two datasets were used in this study. The training domain consists of the GTZAN 
 
 The test domain is the MTG-Jamendo dataset, a large-scale Creative Commons music collection designed for music tagging research [5]. It includes tens of thousands of tracks annotated with multiple tags spanning genres, moods, and instruments. For this study, only genre-related tags were considered. Because MTG-Jamendo supports multi-label annotations and includes genres not present in GTZAN, evaluation reflects a realistic and challenging out-of-domain setting.
 
-Data access and preprocessing followed the official MTG-Jamendo repository guidelines, including audio loading and metadata parsing. Audio clips were formatted to match the input requirements of the evaluated model.
+To ensure a consistent comparison with GTZAN, the MTG-Jamendo dataset was filtered to include only tracks that contain at least one of the ten GTZAN genres. This step reduced the dataset to a subset of tracks relevant for cross-domain evaluation, preventing spurious errors from irrelevant or out-of-scope genre labels.
 
 ## 4.2 Model
 
@@ -85,6 +85,8 @@ First, since there were some tracks in the dataset with two “true genres,” a
 
 # 5. Results
 
+## 5.1 General Performance
+
 For each genre, we report precision, recall, true count, and predicted count to characterize model behavior. Precision measures the proportion of tracks predicted as a given genre that are correctly labeled, while recall measures the proportion of tracks belonging to a given genre that the model successfully identifies. True count refers to the number of tracks in the dataset that actually belong to each genre, and predicted count refers to the total number of tracks assigned to each genre by the model, regardless of correctness. Together, true and predicted counts reveal systematic over- and under-classification across genres, particularly for less prevalent classes.
 
 [Figure 2]
@@ -112,12 +114,16 @@ The overall classification accuracy of the model was **46.6%**, with moderate pe
 
 Some genres exhibited inconsistent behavior between precision and recall. For example, metal had a relatively low precision of 29.1% but a higher recall of 52.2%, indicating that while many predicted metal tracks were incorrect, the model was relatively successful at capturing actual metal tracks. Conversely, pop and jazz showed higher precision than recall, suggesting that the model was conservative in predicting these genres, often missing tracks that truly belonged to them. Overall, these results reveal that the model performs best on dominant, well-represented genres (e.g., classical), struggles with less represented or more ambiguous genres (e.g., disco, blues), and exhibits systematic over or under classification patterns depending on the genre.
 
+## 5.2 Over and Under Classification
+
 [Figure 4]
 
 <img width="481" height="386" alt="image" src="https://github.com/user-attachments/assets/7518839f-a7e1-4159-91ec-7dd247ea4bd4" />
 
 
 The over/under-classification analysis reveals strong systematic bias in the model’s predictions. Genres such as disco, rock, and country are heavily over-classified, indicating that they function as catch-all labels when the model is uncertain, which explains their low precision. In contrast, pop and jazz are substantially under-classified, showing that the model is conservative in assigning these genres and frequently fails to recognize them even when they are present [Figure 4]. Overall, this pattern suggests that misclassifications are skewed toward a small set of dominant genres, highlighting domain-dependent weaknesses in genre discrimination.
+
+## 5.1 Confusion Analysis
 
 [Figure 5]
 
