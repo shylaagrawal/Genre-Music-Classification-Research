@@ -69,6 +69,8 @@ for track_id, track_data in tracks.items():
 ```
 ## 4.3 Getting Results
 
+For tracks appearing multiple times with differing predictions, only the first occurrence was used to ensure each audio file contributed exactly once to evaluation. 
+
 [Figure 1]
 | metric                          | description                                                            | value    |
 |---------------------------------|------------------------------------------------------------------------|----------|
@@ -78,11 +80,33 @@ for track_id, track_data in tracks.items():
 | absolute_accuracy_gain          | extra accuracy gained by allowing secondary genre matches              | 0.051409 |
 | secondary_rescue_rate           | fraction of wrong predictions rescued only by the secondary label      | 0.049926 |
 
-For tracks appearing multiple times with differing predictions, only the first occurrence was used to ensure each audio file contributed exactly once to evaluation. First, since there were some tracks in the dataset with two “true genres,” an evaluation of whether the secondary predicted genre was informative was necessary. Only 15% of tracks have secondary genre labels, and including them improves classification accuracy by just 5%, indicating that secondary genre annotations do not meaningfully affect overall evaluation. Hence, keeping them added complexity without meaningful benefit [Figure 1].
+
+First, since there were some tracks in the dataset with two “true genres,” an evaluation of whether the secondary predicted genre was informative was necessary. Only 15% of tracks have secondary genre labels, and including them improves classification accuracy by just 5%, indicating that secondary genre annotations do not meaningfully affect overall evaluation. Hence, keeping them added complexity without meaningful benefit [Figure 1].
 
 # 5. Results
 
-This section will present quantitative results once experiments are finalized. It will include overall performance metrics, genre-wise accuracy, and patterns between predicted and annotated genres.
+|     genre | precision |   recall | true_count | predicted_count |
+|----------:|----------:|---------:|-----------:|----------------:|
+| classical |  0.845018 | 0.827312 |       1384 |            1355 |
+|       pop |  0.467153 | 0.216582 |       1182 |             548 |
+|      rock |  0.359639 | 0.463663 |        688 |             887 |
+|      jazz |  0.482353 | 0.125000 |        328 |              85 |
+|    hiphop |  0.330097 | 0.220779 |        154 |             103 |
+|     metal |  0.291262 | 0.521739 |        115 |             206 |
+|     blues |  0.030303 | 0.056180 |         89 |             165 |
+|   country |  0.031746 | 0.142857 |         42 |             189 |
+|    reggae |  0.098592 | 0.368421 |         38 |             142 |
+|     disco |  0.019774 | 0.269231 |         26 |             354 |
+[Figure 2]
+
+
+The overall classification accuracy of the model was **46.6%**, with moderate performance across all genres. Performance varied substantially by genre: classical was the most accurately predicted genre, with a precision of 84.5% and recall of 82.7%, closely matching its high prevalence in the dataset (1384 tracks). In contrast, genres such as disco, blues, and country were predicted with very low precision (<3.2%), suggesting that the model frequently misclassified tracks into other genres [Figure 2].
+
+Some genres exhibited inconsistent behavior between precision and recall. For example, metal had a relatively low precision of 29.1% but a higher recall of 52.2%, indicating that while many predicted metal tracks were incorrect, the model was relatively successful at capturing actual metal tracks. Conversely, pop and jazz showed higher precision than recall, suggesting that the model was conservative in predicting these genres, often missing tracks that truly belonged to them. Overall, these results reveal that the model performs best on dominant, well-represented genres (e.g., classical), struggles with less represented or more ambiguous genres (e.g., disco, blues), and exhibits systematic over or under classification patterns depending on the genre.
+
+The over/under-classification analysis reveals strong systematic bias in the model’s predictions. Genres such as disco, rock, and country are heavily over-classified, indicating that they function as catch-all labels when the model is uncertain, which explains their low precision. In contrast, pop and jazz are substantially under-classified, showing that the model is conservative in assigning these genres and frequently fails to recognize them even when they are present. Overall, this pattern suggests that misclassifications are skewed toward a small set of dominant genres, highlighting domain-dependent weaknesses in genre discrimination.
+
+The confusion matrix confirmed that classical stands out as the most stable genre, with a strong diagonal value (~83%), indicating both high precision and recall and relatively little confusion with other genres. In contrast, pop and rock dominate the error patterns: pop is frequently misclassified as rock, and many genres (blues, country, metal) are disproportionately predicted as rock, confirming its role as a catch-all genre. Jazz and hiphop show low diagonal values, with jazz often confused with pop and classical, and hiphop frequently misclassified as pop or disco.
 
 # 6. Conclusion
 
