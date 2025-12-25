@@ -67,6 +67,18 @@ for track_id, track_data in tracks.items():
             relevant_tracks[file_name] = track_data
             break  # only need one matching genre
 ```
+## 4.3 Getting Results
+
+[Figure 1]
+| metric                          | description                                                            | value    |
+|---------------------------------|------------------------------------------------------------------------|----------|
+| fraction_with_secondary_label   | fraction of tracks that have a second true genre                       | 0.154474 |
+| primary_only_accuracy           | accuracy considering only the primary genre                            | 0.466387 |
+| accuracy_with_secondary_allowed | accuracy if a prediction matches either the primary or secondary genre | 0.517795 |
+| absolute_accuracy_gain          | extra accuracy gained by allowing secondary genre matches              | 0.051409 |
+| secondary_rescue_rate           | fraction of wrong predictions rescued only by the secondary label      | 0.049926 |
+
+For tracks appearing multiple times with differing predictions, only the first occurrence was used to ensure each audio file contributed exactly once to evaluation. First, since there were some tracks in the dataset with two “true genres,” an evaluation of whether the secondary predicted genre was informative was necessary. Only 15% of tracks have secondary genre labels, and including them improves classification accuracy by just 5%, indicating that secondary genre annotations do not meaningfully affect overall evaluation. Hence, keeping them added complexity without meaningful benefit [Figure 1].
 
 # 5. Results
 
