@@ -128,7 +128,9 @@ The confusion matrix confirmed that classical stands out as the most stable genr
 
 # 6. Conclusion
 
-This section will summarize the research questions, key findings, and implications of the cross-domain evaluation. It will discuss the relevance of these findings for MIR research and outline directions for future work, including alternative datasets, multi-label evaluation, and domain-robust or zero-shot learning approaches.
+This study evaluated the cross-domain robustness of a standard CNN trained on GTZAN when applied to the MTG-Jamendo corpus. The drop in accuracy to 46.6% quantifies the dangers of deploying benchmark-trained models in the wild. Our results highlight two primary failure modes in domain transfer. First, timbral confusion: genres defined by instrumentation (Country, Metal) effectively collapse into the dominant "Rock" super-category when training data is limited. Second, conservative bias: the model failed to generalize the diverse sub-styles of Pop and Jazz found in modern datasets, defaulting to high-precision but low-recall behavior.
+
+We conclude that while GTZAN remains useful for pedagogical benchmarking, models trained solely upon it lack the semantic robustness required for real-world tagging. Future work should prioritize training on weakly-labeled, large-scale datasets (like MSD or FMA) to prevent the overfitting of genre boundaries to specific dataset recording artifacts.
 
 # 7. References
 
