@@ -139,6 +139,8 @@ This study demonstrates that a standard GTZAN-trained CNN, while performing adeq
 1) Dominant-category over-reliance: Less-represented genres such as country, metal, and disco frequently collapsed into the more dominant Rock label.
 2) Conservative prediction bias: Genres with diverse sub-styles, including pop and jazz, were systematically under-predicted, resulting in high precision but low recall.
 
+Strong performance on classical music (precision 84.5%, recall 82.7%) shows the model transfers well when spectral features are distinct. In contrast, confusion between pop and rock reflects that these genres are culturally, not just acoustically, defined.
+
 These findings highlight a critical risk for developers and researchers who use off-the-shelf, benchmark-trained models from platforms like Hugging Face: strong reported performance on canonical datasets does not guarantee reliable real-world behavior. Future work should prioritize training on large-scale, weakly-labeled datasets and evaluating models across multiple, diverse music collections to ensure robustness and fairness in real-world music tagging applications.
 
 # 7. References
