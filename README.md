@@ -85,7 +85,9 @@ First, since there were some tracks in the dataset with two “true genres,” a
 
 # 5. Results
 
-|     genre | precision |   recall | true_count | predicted_count |
+[Figure 2]
+
+|     **genre** | **precision** |   **recall** | **true_count** | **predicted_count** |
 |----------:|----------:|---------:|-----------:|----------------:|
 | classical |  0.845018 | 0.827312 |       1384 |            1355 |
 |       pop |  0.467153 | 0.216582 |       1182 |             548 |
@@ -97,12 +99,25 @@ First, since there were some tracks in the dataset with two “true genres,” a
 |   country |  0.031746 | 0.142857 |         42 |             189 |
 |    reggae |  0.098592 | 0.368421 |         38 |             142 |
 |     disco |  0.019774 | 0.269231 |         26 |             354 |
-[Figure 2]
 
 
 The overall classification accuracy of the model was **46.6%**, with moderate performance across all genres. Performance varied substantially by genre: classical was the most accurately predicted genre, with a precision of 84.5% and recall of 82.7%, closely matching its high prevalence in the dataset (1384 tracks). In contrast, genres such as disco, blues, and country were predicted with very low precision (<3.2%), suggesting that the model frequently misclassified tracks into other genres [Figure 2].
 
 Some genres exhibited inconsistent behavior between precision and recall. For example, metal had a relatively low precision of 29.1% but a higher recall of 52.2%, indicating that while many predicted metal tracks were incorrect, the model was relatively successful at capturing actual metal tracks. Conversely, pop and jazz showed higher precision than recall, suggesting that the model was conservative in predicting these genres, often missing tracks that truly belonged to them. Overall, these results reveal that the model performs best on dominant, well-represented genres (e.g., classical), struggles with less represented or more ambiguous genres (e.g., disco, blues), and exhibits systematic over or under classification patterns depending on the genre.
+
+[Figure 3]
+| **genre** | **over_under** |
+|----------:|---------------:|
+|     disco |            328 |
+|      rock |            199 |
+|   country |            147 |
+|    reggae |            104 |
+|     metal |             91 |
+|     blues |             76 |
+|       pop |           -634 |
+|      jazz |           -243 |
+|    hiphop |            -51 |
+| classical |            -29 |
 
 The over/under-classification analysis reveals strong systematic bias in the model’s predictions. Genres such as disco, rock, and country are heavily over-classified, indicating that they function as catch-all labels when the model is uncertain, which explains their low precision. In contrast, pop and jazz are substantially under-classified, showing that the model is conservative in assigning these genres and frequently fails to recognize them even when they are present. Overall, this pattern suggests that misclassifications are skewed toward a small set of dominant genres, highlighting domain-dependent weaknesses in genre discrimination.
 
