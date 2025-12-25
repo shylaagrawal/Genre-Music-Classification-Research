@@ -1,6 +1,6 @@
 # 1. Abstract
 
-Music genre classification systems often report strong performance when evaluated on the same datasets used for training, yet their ability to generalize to real-world, out-of-domain music remains limited. This work investigates the cross-domain behavior of a convolutional neural network (CNN) genre classifier trained on the GTZAN dataset when applied to the MTG-Jamendo dataset. By comparing predicted labels from the GTZAN-trained model against genre annotations in MTG-Jamendo, we analyze how a narrow, ten-genre benchmark model performs on a broader and more diverse music collection. Results are coming and will quantify performance degradation, error patterns, and genre-level biases observed under domain shift. These findings aim to highlight the risks of over-reliance on canonical datasets and motivate future research into more robust, transferable approaches for audio classification.
+Music genre classification systems often report strong performance when evaluated on the same datasets used for training, yet their ability to generalize to real-world, out-of-domain music remains limited. This work investigates the cross-domain behavior of a convolutional neural network (CNN) genre classifier trained on the GTZAN dataset when applied to the MTG-Jamendo dataset. By comparing predicted labels from the GTZAN-trained model against genre annotations in MTG-Jamendo, we analyze how a narrow, ten-genre benchmark model performs on a broader and more diverse music collection. The classifier achieved an overall accuracy of 46.6%, performing best on dominant genres such as classical (precision 84.5%, recall 82.7%) and struggling with less prevalent genres like disco, blues, and country (precision <3.2%). Analysis of over- and under-classification patterns revealed systematic biases: disco, rock, and country were frequently over-predicted, while pop and jazz were substantially under-predicted. These findings highlight the risks of over-reliance on canonical datasets and motivate future research into more robust, transferable approaches for audio classification.
 
 # 2. Introduction
 
@@ -39,13 +39,13 @@ Data access and preprocessing followed the official MTG-Jamendo repository guide
 
 ## 4.2 Model
 
-Two pre-trained models were evaluated to enable comparative analysis across different training regimes.
+A convolutional neural network (CNN)-based music genre classifier trained on the GTZAN dataset was evaluated in this study. The model was trained for ten-class single-label classification corresponding to the GTZAN genres: blues, classical, country, disco, hip-hop, jazz, metal, pop, reggae, and rock [1]. No additional fine-tuning or retraining was performed.
 
-The first model is a convolutional neural network-based music genre classifier trained on the GTZAN dataset and distributed via the Hugging Face model hub. The model was trained for ten-class single-label classification corresponding to the GTZAN genres (blues, classical, country, disco, hip-hop, jazz, metal, pop, reggae, and rock). No additional fine-tuning was performed. Inference was conducted using the Hugging Face audio classification pipeline within a Google Colab environment.
+The model was accessed via the Hugging Face model hub and inference was conducted using the Hugging Face audio classification pipeline within a Google Colab environment. For each input audio clip, the model outputs class probabilities over the ten GTZAN genres. The top predicted label was used as the model’s classification output.
 
-The second model is a state-of-the-art Harmonic Convolutional Neural Network trained on the Million Song Dataset (MSD) for large-scale music tagging. Unlike GTZAN, MSD contains hundreds of thousands of tracks annotated with weak, user-generated tags, resulting in broader genre coverage and greater diversity in audio characteristics. This model was included to contrast narrow benchmark training with large-scale, real-world supervision.
+Inference was performed on audio clips from the MTG-Jamendo dataset to evaluate cross-domain generalization. Raw prediction scores were recorded and normalized. Predicted genre labels were compared against MTG-Jamendo genre annotations to assess performance under domain shift.
 
-For both models, inference was performed on MTG-Jamendo audio clips. Raw prediction scores were recorded and normalized. Predicted labels were compared against MTG-Jamendo genre annotations to assess cross-domain performance. To handle large-scale data and allow resumption if processing was interrupted, batch processing was implemented:
+To handle large-scale inference and allow resumption if processing was interrupted, batch processing was implemented:
 
 ```python
 batch_size = 16
