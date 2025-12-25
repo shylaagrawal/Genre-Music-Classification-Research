@@ -85,23 +85,29 @@ First, since there were some tracks in the dataset with two “true genres,” a
 
 # 5. Results
 
+For each genre, we report precision, recall, true count, and predicted count to characterize model behavior. Precision measures the proportion of tracks predicted as a given genre that are correctly labeled, while recall measures the proportion of tracks belonging to a given genre that the model successfully identifies. True count refers to the number of tracks in the dataset that actually belong to each genre, and predicted count refers to the total number of tracks assigned to each genre by the model, regardless of correctness. Together, true and predicted counts reveal systematic over- and under-classification across genres, particularly for less prevalent classes.
+
 [Figure 2]
 
-|     **genre** | **precision** |   **recall** | **true_count** | **predicted_count** |
-|----------:|----------:|---------:|-----------:|----------------:|
-| classical |  0.845018 | 0.827312 |       1384 |            1355 |
-|       pop |  0.467153 | 0.216582 |       1182 |             548 |
-|      rock |  0.359639 | 0.463663 |        688 |             887 |
-|      jazz |  0.482353 | 0.125000 |        328 |              85 |
-|    hiphop |  0.330097 | 0.220779 |        154 |             103 |
-|     metal |  0.291262 | 0.521739 |        115 |             206 |
-|     blues |  0.030303 | 0.056180 |         89 |             165 |
-|   country |  0.031746 | 0.142857 |         42 |             189 |
-|    reggae |  0.098592 | 0.368421 |         38 |             142 |
-|     disco |  0.019774 | 0.269231 |         26 |             354 |
+|     **genre** | **true_count** | **predicted_count** |
+|----------:|-----------:|----------------:|
+| classical |       1384 |            1355 |
+|       pop |       1182 |             548 |
+|      rock |        688 |             887 |
+|      jazz |        328 |              85 |
+|    hiphop |        154 |             103 |
+|     metal |        115 |             206 |
+|     blues |         89 |             165 |
+|   country |         42 |             189 |
+|    reggae |         38 |             142 |
+|     disco |         26 |             354 |
 
 
-The overall classification accuracy of the model was **46.6%**, with moderate performance across all genres. Performance varied substantially by genre: classical was the most accurately predicted genre, with a precision of 84.5% and recall of 82.7%, closely matching its high prevalence in the dataset (1384 tracks). In contrast, genres such as disco, blues, and country were predicted with very low precision (<3.2%), suggesting that the model frequently misclassified tracks into other genres [Figure 2].
+[Figure 3]
+<img width="837" height="348" alt="image" src="https://github.com/user-attachments/assets/b9c0bb07-4e1f-44f6-a1e0-de3bf0b192c9" />
+
+
+The overall classification accuracy of the model was **46.6%**, with moderate performance across all genres. Performance varied substantially by genre: classical was the most accurately predicted genre, with a precision of 84.5% and recall of 82.7%, closely matching its high prevalence in the dataset (1384 tracks). In contrast, genres such as disco, blues, and country were predicted with very low precision (<3.2%), suggesting that the model frequently misclassified tracks into other genres [Figure 3].
 
 Some genres exhibited inconsistent behavior between precision and recall. For example, metal had a relatively low precision of 29.1% but a higher recall of 52.2%, indicating that while many predicted metal tracks were incorrect, the model was relatively successful at capturing actual metal tracks. Conversely, pop and jazz showed higher precision than recall, suggesting that the model was conservative in predicting these genres, often missing tracks that truly belonged to them. Overall, these results reveal that the model performs best on dominant, well-represented genres (e.g., classical), struggles with less represented or more ambiguous genres (e.g., disco, blues), and exhibits systematic over or under classification patterns depending on the genre.
 
