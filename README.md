@@ -1,6 +1,6 @@
 # 1. Abstract
 
-Music genre classification systems often report strong performance when evaluated on the same datasets used for training, yet their ability to generalize to real-world, out-of-domain music remains limited. This work investigates the cross-domain behavior of a convolutional neural network (CNN) genre classifier trained on the GTZAN dataset when applied to the MTG-Jamendo dataset. By comparing predicted labels from the GTZAN-trained model against genre annotations in MTG-Jamendo, we analyze how a narrow, ten-genre benchmark model performs on a broader and more diverse music collection. The classifier achieved an overall accuracy of 46.6%, performing best on dominant genres such as classical (precision 84.5%, recall 82.7%) and struggling with less prevalent genres like disco, blues, and country (precision <3.2%). Analysis of over- and under-classification patterns revealed systematic biases: disco, rock, and country were frequently over-predicted, while pop and jazz were substantially under-predicted. These findings highlight the risks of over-reliance on canonical datasets and motivate future research into more robust, transferable approaches for audio classification.
+Pre-trained music genre classifiers are widely distributed on platforms like Hugging Face, but their performance beyond benchmark datasets remains poorly understood. This work evaluates a convolutional neural network (CNN) trained on the GTZAN dataset when applied to the large-scale, multi-label MTG-Jamendo corpus. The classifier achieved an overall accuracy of 46.6%, performing best on dominant genres such as classical (precision 84.5%, recall 82.7%) and struggling with less prevalent genres like disco, blues, and country (precision <3.2%). Over- and under-classification analysis revealed systematic biases: disco, rock, and country were frequently over-predicted, while pop and jazz were substantially under-predicted. These results quantify the risks of deploying off-the-shelf benchmark-trained models in real-world settings and underscore the need for more robust, transferable training on diverse, large-scale datasets.
 
 # 2. Introduction
 
@@ -134,9 +134,12 @@ The confusion matrix confirmed that classical stands out as the most stable genr
 
 # 6. Conclusion
 
-This study evaluated the cross-domain robustness of a standard CNN trained on GTZAN when applied to the MTG-Jamendo corpus. The drop in accuracy to 46.6% quantifies the dangers of deploying benchmark-trained models in the wild. Our results highlight two primary failure modes in domain transfer. First, timbral confusion: genres defined by instrumentation (Country, Metal) effectively collapse into the dominant "Rock" super-category when training data is limited. Second, conservative bias: the model failed to generalize the diverse sub-styles of Pop and Jazz found in modern datasets, defaulting to high-precision but low-recall behavior.
+This study demonstrates that a standard GTZAN-trained CNN, while performing adequately on its benchmark, exhibits substantial performance degradation when applied to MTG-Jamendo. The overall accuracy dropped to 46.6%, revealing two key failure modes in cross-domain generalization:
 
-We conclude that while GTZAN remains useful for pedagogical benchmarking, models trained solely upon it lack the semantic robustness required for real-world tagging. Future work should prioritize training on weakly-labeled, large-scale datasets (like MSD or FMA) to prevent the overfitting of genre boundaries to specific dataset recording artifacts.
+1) Dominant-category over-reliance: Less-represented genres such as country, metal, and disco frequently collapsed into the more dominant Rock label.
+2) Conservative prediction bias: Genres with diverse sub-styles, including pop and jazz, were systematically under-predicted, resulting in high precision but low recall.
+
+These findings highlight a critical risk for developers and researchers who use off-the-shelf, benchmark-trained models from platforms like Hugging Face: strong reported performance on canonical datasets does not guarantee reliable real-world behavior. Future work should prioritize training on large-scale, weakly-labeled datasets and evaluating models across multiple, diverse music collections to ensure robustness and fairness in real-world music tagging applications.
 
 # 7. References
 
