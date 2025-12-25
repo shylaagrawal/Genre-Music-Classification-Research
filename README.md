@@ -105,7 +105,7 @@ For each genre, we report precision, recall, true count, and predicted count to 
 
 [Figure 3]
 
-<img width="837" height="348" alt="image" src="https://github.com/user-attachments/assets/b9c0bb07-4e1f-44f6-a1e0-de3bf0b192c9" />
+<img width="502" height="209" alt="image" src="https://github.com/user-attachments/assets/b9c0bb07-4e1f-44f6-a1e0-de3bf0b192c9" />
 
 
 The overall classification accuracy of the model was **46.6%**, with moderate performance across all genres. Performance varied substantially by genre: classical was the most accurately predicted genre, with a precision of 84.5% and recall of 82.7%, closely matching its high prevalence in the dataset (1384 tracks). In contrast, genres such as disco, blues, and country were predicted with very low precision (<3.2%), suggesting that the model frequently misclassified tracks into other genres [Figure 3].
