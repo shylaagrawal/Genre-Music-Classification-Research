@@ -106,22 +106,16 @@ The overall classification accuracy of the model was **46.6%**, with moderate pe
 Some genres exhibited inconsistent behavior between precision and recall. For example, metal had a relatively low precision of 29.1% but a higher recall of 52.2%, indicating that while many predicted metal tracks were incorrect, the model was relatively successful at capturing actual metal tracks. Conversely, pop and jazz showed higher precision than recall, suggesting that the model was conservative in predicting these genres, often missing tracks that truly belonged to them. Overall, these results reveal that the model performs best on dominant, well-represented genres (e.g., classical), struggles with less represented or more ambiguous genres (e.g., disco, blues), and exhibits systematic over or under classification patterns depending on the genre.
 
 [Figure 3]
-| **genre** | **over_under** |
-|----------:|---------------:|
-|     disco |            328 |
-|      rock |            199 |
-|   country |            147 |
-|    reggae |            104 |
-|     metal |             91 |
-|     blues |             76 |
-|       pop |           -634 |
-|      jazz |           -243 |
-|    hiphop |            -51 |
-| classical |            -29 |
+<img width="1980" height="1499" alt="genre_over_under" src="https://github.com/user-attachments/assets/9426b195-2654-4676-9b57-d368f3494c0d" />
 
-The over/under-classification analysis reveals strong systematic bias in the model’s predictions. Genres such as disco, rock, and country are heavily over-classified, indicating that they function as catch-all labels when the model is uncertain, which explains their low precision. In contrast, pop and jazz are substantially under-classified, showing that the model is conservative in assigning these genres and frequently fails to recognize them even when they are present. Overall, this pattern suggests that misclassifications are skewed toward a small set of dominant genres, highlighting domain-dependent weaknesses in genre discrimination.
 
-The confusion matrix confirmed that classical stands out as the most stable genre, with a strong diagonal value (~83%), indicating both high precision and recall and relatively little confusion with other genres. In contrast, pop and rock dominate the error patterns: pop is frequently misclassified as rock, and many genres (blues, country, metal) are disproportionately predicted as rock, confirming its role as a catch-all genre. Jazz and hiphop show low diagonal values, with jazz often confused with pop and classical, and hiphop frequently misclassified as pop or disco.
+The over/under-classification analysis reveals strong systematic bias in the model’s predictions. Genres such as disco, rock, and country are heavily over-classified, indicating that they function as catch-all labels when the model is uncertain, which explains their low precision. In contrast, pop and jazz are substantially under-classified, showing that the model is conservative in assigning these genres and frequently fails to recognize them even when they are present [Figure 3]. Overall, this pattern suggests that misclassifications are skewed toward a small set of dominant genres, highlighting domain-dependent weaknesses in genre discrimination.
+
+[Figure 4]
+<img width="1980" height="1499" alt="confusion" src="https://github.com/user-attachments/assets/96494173-9a9b-428f-910c-4c6a6f8d33d6" />
+
+
+The confusion matrix confirmed that classical stands out as the most stable genre, with a strong diagonal value (~83%), indicating both high precision and recall and relatively little confusion with other genres [Figure 4]. In contrast, pop and rock dominate the error patterns: pop is frequently misclassified as rock, and many genres (blues, country, metal) are disproportionately predicted as rock, confirming its role as a catch-all genre. Jazz and hiphop show low diagonal values, with jazz often confused with pop and classical, and hiphop frequently misclassified as pop or disco.
 
 # 6. Conclusion
 
